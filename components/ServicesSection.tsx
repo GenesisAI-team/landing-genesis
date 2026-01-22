@@ -1,15 +1,17 @@
 import React, { useState, useEffect, useRef } from "react";
 import { ArrowUpRight, X, Check, Terminal, Cpu } from "lucide-react";
 
+// --- SERVICIOS (Data) ---
 const services = [
   {
-    title: "AGENTES IA",
+    title: "AGENTES DE ATENCIÓN IA",
     desc: "Tu primera línea de defensa comercial. Atiende, cualifica y vende 24/7 sin descanso.",
     details:
       "Implementamos asistentes virtuales entrenados con tu base de conocimiento empresarial. No son chatbots básicos; son agentes capaces de mantener conversaciones naturales, resolver dudas complejas de clientes, filtrar curiosos de compradores reales y agendar citas directamente en tu calendario.",
     features: [
       "Respuesta inmediata (< 3 seg)",
-      "Atención omnicanal (Web/WhatsApp/Instagram...)",
+      "Cualificación de leads automática",
+      "Atención omnicanal (Web/WhatsApp)",
       "Escalado infinito de conversaciones",
     ],
     gif: "https://mir-s3-cdn-cf.behance.net/project_modules/fs/eef76b143584307.627d06916ce10.gif",
@@ -31,7 +33,7 @@ const services = [
     title: "DESARROLLO WEB PREMIUM",
     desc: "Tu sede digital. Diseño de alto impacto que posiciona tu autoridad y convierte visitas en dinero.",
     details:
-      "No hacemos webs genéricas. Desarrollamos plataformas digitales optimizadas para la velocidad y la conversión. Fusionamos estética con psicología de ventas para que tu web no solo sea bonita, sino que sea tu mejor comercial. Preparada para SEO y perfectamente adaptable a cualquier dispositivo.",
+      "No hacemos webs genéricas. Desarrollamos plataformas digitales optimizadas para la velocidad y la conversión. Fusionamos estética 'Cyberpunk/Tech' con psicología de ventas para que tu web no solo sea bonita, sino que sea tu mejor comercial. Preparada para SEO y perfectamente adaptable a cualquier dispositivo.",
     features: [
       "Diseño UI/UX de vanguardia",
       "Optimización de velocidad extrema",
@@ -68,34 +70,39 @@ const ServicesSection: React.FC = () => {
   // Auto-Scroll Logic for Mobile
   useEffect(() => {
     const interval = setInterval(() => {
-      // Only run on mobile/tablet widths where the grid turns into flex/carousel
       if (scrollContainerRef.current && window.innerWidth < 768) {
         const { current } = scrollContainerRef;
-
-        // Calculate dimensions based on current content
-        // Assuming child width + gap.
-        // In CSS we have w-[85vw] and gap-6 (24px)
         const firstCard = current.children[0] as HTMLElement;
         if (!firstCard) return;
 
         const cardWidth = firstCard.clientWidth;
-        const gap = 24; // Approximation of gap-6
+        const gap = 24;
         const scrollAmount = cardWidth + gap;
-
         const maxScroll = current.scrollWidth - current.clientWidth;
 
-        // If near the end, loop back to start, otherwise scroll next
-        // We use a small buffer (10px) for float calculation safety
         if (current.scrollLeft >= maxScroll - 10) {
           current.scrollTo({ left: 0, behavior: "smooth" });
         } else {
           current.scrollBy({ left: scrollAmount, behavior: "smooth" });
         }
       }
-    }, 7500); // 7.5 Seconds interval
+    }, 7500);
 
     return () => clearInterval(interval);
   }, []);
+
+  // --- LÓGICA DE NAVEGACIÓN DESDE EL MODAL ---
+  const handleRequestInfo = () => {
+    // 1. Cerrar el modal
+    setSelectedService(null);
+
+    // 2. Esperar un momento (100ms) para que se cierre visualmente y luego scroll
+    setTimeout(() => {
+      document
+        .getElementById("contacto")
+        ?.scrollIntoView({ behavior: "smooth" });
+    }, 100);
+  };
 
   return (
     <section
@@ -147,18 +154,13 @@ const ServicesSection: React.FC = () => {
 
       {/* --- ENHANCED BACKGROUND WITH MOTION & LIGHT --- */}
       <div className="absolute inset-0 z-0 pointer-events-none">
-        {/* NEW: Radial Highlight to break the darkness */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-full bg-[radial-gradient(circle_at_50%_0%,rgba(30,41,59,0.5)_0%,transparent_70%)]"></div>
-
-        {/* Layer 1: Base Grid - Fixed Attachment for seamless continuity */}
         <div
           className="absolute inset-0 bg-grid-pattern opacity-50 animate-grid-flow-slow bg-fixed"
           style={{
-            backgroundPosition: `0px ${scrollY * 0.1}px`, // Parallax assist
+            backgroundPosition: `0px ${scrollY * 0.1}px`,
           }}
         ></div>
-
-        {/* Layer 2: Small Grid - Fixed Attachment */}
         <div
           className="absolute inset-0 bg-grid-small opacity-60 mix-blend-overlay animate-grid-flow bg-fixed"
           style={{
@@ -183,7 +185,6 @@ const ServicesSection: React.FC = () => {
 
         {/* Carousel Container */}
         <div className="relative group/carousel">
-          {/* Bento Grid / Carousel Area */}
           <div
             ref={scrollContainerRef}
             className="flex overflow-x-auto snap-x snap-mandatory gap-6 pb-8 -mx-4 px-4 md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-8 md:overflow-visible md:pb-0 md:mx-0 md:px-0 scrollbar-hide"
@@ -199,10 +200,7 @@ const ServicesSection: React.FC = () => {
                             transition-all duration-300 ease-out
                             flex flex-col h-full cursor-pointer overflow-hidden z-20"
               >
-                {/* --- Floating Glow Effect --- */}
                 <div className="absolute inset-0 bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"></div>
-
-                {/* --- HOVER SCANNER EFFECT --- */}
                 <div className="absolute left-0 w-full h-32 bg-gradient-to-b from-transparent via-neon/10 to-transparent opacity-0 scan-line pointer-events-none z-20"></div>
 
                 {/* GIF Container */}
@@ -213,7 +211,6 @@ const ServicesSection: React.FC = () => {
                     alt={service.title}
                     className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500 transform group-hover:scale-105"
                   />
-                  {/* Retro Corner accents */}
                   <div className="absolute top-2 left-2 w-2 h-2 border-t border-l border-white/30"></div>
                   <div className="absolute bottom-2 right-2 w-2 h-2 border-b border-r border-white/30"></div>
                 </div>
@@ -244,8 +241,6 @@ const ServicesSection: React.FC = () => {
         </div>
       </div>
 
-      {/* REMOVED BOTTOM FADE FOR SEAMLESS CONNECTION WITH CALCULATOR */}
-
       {/* --- MODAL (VERTICAL STACK LAYOUT) --- */}
       {selectedService && (
         <div
@@ -254,16 +249,16 @@ const ServicesSection: React.FC = () => {
             if (e.target === e.currentTarget) setSelectedService(null);
           }}
         >
-          {/* Modal Box - Stacked Layout Enforced */}
+          {/* Modal Box */}
           <div
             className="relative w-full max-w-3xl max-h-[90vh] flex flex-col bg-[#020617] border border-neon rounded-sm shadow-[0_0_30px_rgba(255,101,46,0.2)] overflow-hidden animate-retro-modal"
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Decorative Corners */}
+            {/* Corners */}
             <div className="absolute top-0 left-0 w-8 h-8 border-t-2 border-l-2 border-neon/50 z-20 pointer-events-none"></div>
             <div className="absolute bottom-0 right-0 w-8 h-8 border-b-2 border-r-2 border-neon/50 z-20 pointer-events-none"></div>
 
-            {/* Close Button - Always Visible */}
+            {/* Close Button */}
             <button
               onClick={() => setSelectedService(null)}
               className="absolute top-3 right-3 z-50 p-2 bg-slate-900/90 border border-white/20 text-slate-300 hover:text-white hover:bg-red-500/20 rounded-full shadow-lg backdrop-blur-sm transition-colors"
@@ -271,7 +266,7 @@ const ServicesSection: React.FC = () => {
               <X size={20} />
             </button>
 
-            {/* SIDE A: VISUAL (Top) - Cinematic Header */}
+            {/* SIDE A: VISUAL */}
             <div className="w-full h-56 md:h-80 relative bg-black border-b border-slate-800 flex-shrink-0 flex items-center justify-center">
               <div className="absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] z-10 bg-[length:100%_4px,3px_100%] pointer-events-none"></div>
               <div className="absolute inset-0 bg-neon/5 mix-blend-overlay z-10"></div>
@@ -290,9 +285,8 @@ const ServicesSection: React.FC = () => {
               </div>
             </div>
 
-            {/* SIDE B: DATA (Bottom) - Full Width Scrollable */}
+            {/* SIDE B: DATA */}
             <div className="w-full flex flex-col relative bg-[#020617] min-h-0 overflow-hidden">
-              {/* Terminal Header */}
               <div className="flex-shrink-0 flex items-center justify-between px-4 sm:px-6 py-3 border-b border-slate-800 bg-slate-900/30">
                 <div className="flex items-center gap-3">
                   <div className="flex gap-1.5">
@@ -312,7 +306,6 @@ const ServicesSection: React.FC = () => {
                 </div>
               </div>
 
-              {/* Scrollable Content */}
               <div className="p-5 sm:p-6 md:p-8 flex-grow overflow-y-auto custom-scrollbar">
                 <h2 className="font-inter font-black text-2xl sm:text-3xl text-white uppercase mb-4 leading-none">
                   {selectedService.title}
@@ -342,9 +335,12 @@ const ServicesSection: React.FC = () => {
                   </ul>
                 </div>
 
-                {/* Action Button inside content flow */}
+                {/* BOTÓN SOLICITAR INFO - AHORA CONECTADO A CONTACTO */}
                 <div className="mt-8 pt-6 border-t border-slate-800">
-                  <button className="w-full px-6 py-4 bg-neon text-white font-inter font-medium text-sm md:text-base uppercase tracking-widest hover:bg-white hover:text-black transition-all shadow-[4px_4px_0px_0px_rgba(255,255,255,0.2)] hover:shadow-[2px_2px_0px_0px_rgba(255,255,255,1)] hover:translate-x-[1px] hover:translate-y-[1px]">
+                  <button
+                    onClick={handleRequestInfo}
+                    className="w-full px-6 py-4 bg-neon text-white font-inter font-medium text-sm md:text-base uppercase tracking-widest hover:bg-white hover:text-black transition-all shadow-[4px_4px_0px_0px_rgba(255,255,255,0.2)] hover:shadow-[2px_2px_0px_0px_rgba(255,255,255,1)] hover:translate-x-[1px] hover:translate-y-[1px]"
+                  >
                     SOLICITAR INFO {">"}
                   </button>
                 </div>
