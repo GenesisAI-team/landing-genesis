@@ -56,14 +56,17 @@ const Navbar: React.FC = () => {
       <nav className="fixed top-0 left-0 w-full z-50 bg-gradient-to-b from-slate-950/90 to-transparent backdrop-blur-[2px]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-24">
-            {/* Logo Section - Ahora hace scroll suave al inicio */}
+            {/* Logo Section - Reemplazado texto por IMG */}
             <div
               onClick={scrollToTop}
               className="flex-shrink-0 flex items-center gap-4 cursor-pointer group z-50 relative"
             >
-              <span className="font-pixel text-lg md:text-xl text-white tracking-widest group-hover:text-neon transition-colors duration-300 block">
-                GÉNESIS
-              </span>
+              <img
+                src="/genesis-mark-black.svg"
+                alt="GÉNESIS"
+                // CAMBIO: De h-10 pasamos a h-14 (móvil) y h-20 (escritorio).
+                className="h-20 md:h-20 w-auto object-contain invert transition-transform duration-300 group-hover:scale-105"
+              />
             </div>
 
             {/* Desktop Links */}
@@ -73,7 +76,7 @@ const Navbar: React.FC = () => {
                   <a
                     key={link.name}
                     href={link.href}
-                    onClick={(e) => handleScroll(e, link.href)} // <--- APLICADO AQUÍ
+                    onClick={(e) => handleScroll(e, link.href)}
                     className="relative group font-pixel text-xs text-slate-300 hover:text-neon transition-colors duration-200 px-3 py-2 cursor-pointer"
                   >
                     <span className="opacity-0 group-hover:opacity-100 absolute left-0 text-neon transition-opacity duration-200">
@@ -140,7 +143,7 @@ const Navbar: React.FC = () => {
                 <a
                   key={link.name}
                   href={link.href}
-                  onClick={(e) => handleScroll(e, link.href)} // <--- APLICADO AQUÍ TAMBIÉN
+                  onClick={(e) => handleScroll(e, link.href)}
                   className="group relative flex items-center gap-6 py-5 border-b border-white/5 last:border-0 hover:bg-white/5 transition-colors duration-300 px-2 cursor-pointer"
                 >
                   {/* Animated Indicator Line (Left Border) */}
