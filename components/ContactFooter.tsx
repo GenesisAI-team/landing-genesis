@@ -12,15 +12,12 @@ import {
 } from "lucide-react";
 
 // --- CONFIGURACIÓN ---
-const EMAIL = "hola@genesis-systems.ai";
-// IMPORTANTE: Pon aquí tu enlace real de Calendly o Cal.com
+const EMAIL = "genesisnavarra.ai@gmail.com";
 const CALENDAR_URL = "https://cal.com/genesis-ch8rkh/30min";
 
 const ContactFooter: React.FC = () => {
-  // Estado para controlar si el modal está abierto o cerrado
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  // Bloquear el scroll del cuerpo cuando el modal está abierto
   useEffect(() => {
     if (isModalOpen) {
       document.body.style.overflow = "hidden";
@@ -59,7 +56,6 @@ const ContactFooter: React.FC = () => {
 
           {/* Action Buttons */}
           <div className="flex flex-col sm:flex-row items-center gap-4 sm:gap-6 w-full sm:w-auto mb-20">
-            {/* Button 1: Calendar (Ahora abre el Modal) */}
             <button
               onClick={() => setIsModalOpen(true)}
               className="group w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-neon text-white font-inter font-bold hover:bg-white hover:text-black transition-all px-8 py-4 rounded-sm shadow-[0_0_20px_rgba(255,101,46,0.2)] hover:shadow-[0_0_30px_rgba(255,255,255,0.4)] hover:-translate-y-1"
@@ -71,7 +67,6 @@ const ContactFooter: React.FC = () => {
               AGENDAR AUDITORÍA
             </button>
 
-            {/* Button 2: Email */}
             <a
               href={`mailto:${EMAIL}`}
               className="group w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-transparent border border-slate-700 text-slate-300 hover:border-white hover:text-white transition-all px-8 py-4 rounded-sm font-inter font-medium hover:bg-white/5"
@@ -85,15 +80,15 @@ const ContactFooter: React.FC = () => {
           </div>
 
           {/* --- PART B: META-COMPLIANT FOOTER --- */}
-          <div className="w-full border-t border-white/5 pt-16 flex flex-col">
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
-              {/* ... (Todo el contenido del footer igual que antes) ... */}
+          <div className="w-full border-t border-white/5 pt-16">
+            {/* CORRECCIÓN: Flex container centrado para las columnas */}
+            <div className="flex flex-col md:flex-row justify-center items-center md:items-start gap-12 md:gap-24 w-full max-w-6xl mx-auto">
               {/* Column 1: Identity */}
-              <div className="flex flex-col items-start">
+              <div className="flex flex-col items-center md:items-start text-center md:text-left max-w-xs">
                 <span className="font-inter font-black text-xl text-white tracking-tight uppercase mb-4 block">
                   GÉNESIS SYSTEMS
                 </span>
-                <p className="text-slate-500 text-xs leading-relaxed max-w-xs">
+                <p className="text-slate-500 text-xs leading-relaxed">
                   Automatización inteligente para empresas que escalan.
                   Transformamos operaciones manuales en ecosistemas digitales
                   autónomos.
@@ -101,22 +96,22 @@ const ContactFooter: React.FC = () => {
               </div>
 
               {/* Column 2: Contact */}
-              <div className="flex flex-col items-start">
+              <div className="flex flex-col items-center md:items-start text-center md:text-left min-w-[200px]">
                 <h4 className="font-inter font-bold text-xs text-slate-200 mb-6 tracking-widest uppercase">
                   CONTACTO
                 </h4>
-                <div className="flex flex-col gap-3">
+                <div className="flex flex-col gap-3 items-center md:items-start">
                   <div className="flex items-start gap-3 text-slate-500 text-xs">
                     <MapPin size={14} className="mt-0.5 shrink-0" />
                     <span>
-                      Calle Ejemplo 123,
+                      Calle los Arcos, 4 Izquierda
                       <br />
-                      28001 Madrid, España
+                      España
                     </span>
                   </div>
                   <div className="flex items-start gap-3 text-slate-500 text-xs">
                     <FileText size={14} className="mt-0.5 shrink-0" />
-                    <span>VAT/NIF: ES-B12345678</span>
+                    <span>NIF: G71XXXXXX</span>
                   </div>
                   <div className="flex items-start gap-3 text-slate-500 text-xs hover:text-white transition-colors">
                     <Mail size={14} className="mt-0.5 shrink-0" />
@@ -126,69 +121,44 @@ const ContactFooter: React.FC = () => {
               </div>
 
               {/* Column 3: Legal */}
-              <div className="flex flex-col items-start">
+              <div className="flex flex-col items-center md:items-start text-center md:text-left min-w-[200px]">
                 <h4 className="font-inter font-bold text-xs text-slate-200 mb-6 tracking-widest uppercase">
                   LEGAL
                 </h4>
-                <ul className="flex flex-col gap-3 text-xs text-slate-500">
+                <ul className="flex flex-col gap-3 text-xs text-slate-500 items-center md:items-start">
                   <li>
-                    <a href="#" className="hover:text-neon transition-colors">
+                    <a
+                      href="/aviso-legal"
+                      className="hover:text-neon transition-colors"
+                    >
                       Aviso Legal
                     </a>
                   </li>
                   <li>
-                    <a href="#" className="hover:text-neon transition-colors">
+                    <a
+                      href="/privacidad"
+                      className="hover:text-neon transition-colors"
+                    >
                       Política de Privacidad
                     </a>
                   </li>
                   <li>
-                    <a href="#" className="hover:text-neon transition-colors">
-                      Términos y Condiciones
-                    </a>
-                  </li>
-                  <li>
-                    <a href="#" className="hover:text-neon transition-colors">
+                    <a
+                      href="/cookies"
+                      className="hover:text-neon transition-colors"
+                    >
                       Política de Cookies
                     </a>
                   </li>
                 </ul>
               </div>
-
-              {/* Column 4: Socials */}
-              <div className="flex flex-col items-start">
-                <h4 className="font-inter font-bold text-xs text-slate-200 mb-6 tracking-widest uppercase">
-                  SÍGUENOS
-                </h4>
-                <div className="flex items-center gap-4">
-                  <a
-                    href="#"
-                    className="w-8 h-8 flex items-center justify-center rounded-sm border border-slate-800 text-slate-400 hover:text-white hover:border-neon hover:bg-neon/10 transition-all"
-                  >
-                    <span className="sr-only">LinkedIn</span>
-                    <Linkedin size={16} />
-                  </a>
-                  <a
-                    href="#"
-                    className="w-8 h-8 flex items-center justify-center rounded-sm border border-slate-800 text-slate-400 hover:text-white hover:border-neon hover:bg-neon/10 transition-all"
-                  >
-                    <span className="sr-only">Twitter</span>
-                    <Twitter size={16} />
-                  </a>
-                  <a
-                    href="#"
-                    className="w-8 h-8 flex items-center justify-center rounded-sm border border-slate-800 text-slate-400 hover:text-white hover:border-neon hover:bg-neon/10 transition-all"
-                  >
-                    <span className="sr-only">Instagram</span>
-                    <Instagram size={16} />
-                  </a>
-                </div>
-              </div>
             </div>
 
             {/* Bottom Row */}
-            <div className="w-full border-t border-white/5 pt-8 text-center">
+            <div className="w-full border-t border-white/5 pt-8 text-center mt-12">
               <p className="text-slate-600 text-[10px] font-mono uppercase tracking-wider">
-                © 2026 GÉNESIS AI. Todos los derechos reservados.
+                © {new Date().getFullYear()} GÉNESIS SYSTEMS. Todos los derechos
+                reservados.
               </p>
             </div>
           </div>
@@ -198,15 +168,11 @@ const ContactFooter: React.FC = () => {
       {/* --- MODAL CALENDARIO (POPUP) --- */}
       {isModalOpen && (
         <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 sm:p-6 animate-in fade-in duration-200">
-          {/* Backdrop (Dark Overlay) */}
           <div
             className="absolute inset-0 bg-black/80 backdrop-blur-sm"
-            onClick={() => setIsModalOpen(false)} // Cerrar al hacer clic fuera
+            onClick={() => setIsModalOpen(false)}
           ></div>
-
-          {/* Modal Content */}
           <div className="relative w-full max-w-5xl h-[85vh] bg-[#0B1121] border border-slate-700 rounded-lg shadow-2xl overflow-hidden flex flex-col">
-            {/* Modal Header */}
             <div className="flex items-center justify-between px-4 py-3 border-b border-slate-800 bg-[#020617]">
               <div className="flex items-center gap-2">
                 <Terminal size={16} className="text-neon" />
@@ -221,11 +187,7 @@ const ContactFooter: React.FC = () => {
                 <X size={20} />
               </button>
             </div>
-
-            {/* Calendar Iframe */}
             <div className="flex-grow w-full bg-white">
-              {/* Nota: El bg es white porque Calendly suele tener fondo blanco por defecto, 
-                    aunque en la versión Pro de Calendly puedes ponerlo oscuro */}
               <iframe
                 src={CALENDAR_URL}
                 width="100%"
