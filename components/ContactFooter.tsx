@@ -86,7 +86,7 @@ const ContactFooter: React.FC = () => {
               {/* Column 1: Identity */}
               <div className="flex flex-col items-center md:items-start text-center md:text-left max-w-xs">
                 <span className="font-inter font-black text-xl text-white tracking-tight uppercase mb-4 block">
-                  GÉNESIS SYSTEMS
+                  GÉNESIS
                 </span>
                 <p className="text-slate-500 text-xs leading-relaxed">
                   Automatización inteligente para empresas que escalan.
@@ -157,8 +157,8 @@ const ContactFooter: React.FC = () => {
             {/* Bottom Row */}
             <div className="w-full border-t border-white/5 pt-8 text-center mt-12">
               <p className="text-slate-600 text-[10px] font-mono uppercase tracking-wider">
-                © {new Date().getFullYear()} GÉNESIS SYSTEMS. Todos los derechos
-                reservados.
+                © {new Date().getFullYear()} GÉNESIS INNOVACIÓN DIGITAL. Todos
+                los derechos reservados.
               </p>
             </div>
           </div>
