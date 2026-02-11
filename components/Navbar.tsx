@@ -1,8 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { Menu, X, ChevronRight, Terminal } from "lucide-react";
+import { useLocation, useNavigate } from "react-router-dom"; // <--- IMPORTANTE
 
 const Navbar: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  // Hooks para navegación
+  const location = useLocation();
+  const navigate = useNavigate();
 
   // Lock body scroll when menu is open
   useEffect(() => {
@@ -22,32 +27,40 @@ const Navbar: React.FC = () => {
     { name: "CONTACTO", href: "#contacto" },
   ];
 
-  // --- LÓGICA DE SCROLL SUAVE ---
+  // --- LÓGICA DE NAVEGACIÓN INTELIGENTE ---
   const handleScroll = (
     e: React.MouseEvent<HTMLAnchorElement | HTMLDivElement>,
     href: string,
   ) => {
-    e.preventDefault(); // Evita el salto brusco por defecto
+    e.preventDefault();
+    setIsMenuOpen(false); // Cerramos menú siempre
 
     const targetId = href.replace("#", "");
-    const element = document.getElementById(targetId);
 
-    if (element) {
-      // 1. Cierra el menú móvil si está abierto
-      setIsMenuOpen(false);
-
-      // 2. Realiza el scroll suave
-      element.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-      });
+    if (location.pathname === "/") {
+      // CASO A: Estamos en la Home -> Scroll normal
+      const element = document.getElementById(targetId);
+      if (element) {
+        element.scrollIntoView({
+          behavior: "smooth",
+          block: "start",
+        });
+      }
+    } else {
+      // CASO B: Estamos en Legal/Cookies -> Ir a Home y luego scroll
+      navigate("/", { state: { scrollTo: targetId } });
     }
   };
 
-  // Función extra para subir arriba del todo al clicar el logo
+  // Función para subir arriba (o ir a Home si estás fuera)
   const scrollToTop = () => {
     setIsMenuOpen(false);
-    window.scrollTo({ top: 0, behavior: "smooth" });
+
+    if (location.pathname === "/") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    } else {
+      navigate("/"); // Simplemente vuelve a la home
+    }
   };
 
   return (
@@ -56,7 +69,7 @@ const Navbar: React.FC = () => {
       <nav className="fixed top-0 left-0 w-full z-50 bg-gradient-to-b from-slate-950/90 to-transparent backdrop-blur-[2px]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-24">
-            {/* Logo Section - Reemplazado texto por IMG */}
+            {/* Logo Section */}
             <div
               onClick={scrollToTop}
               className="flex-shrink-0 flex items-center gap-4 cursor-pointer group z-50 relative"
@@ -64,7 +77,6 @@ const Navbar: React.FC = () => {
               <img
                 src="/genesis-mark-black.svg"
                 alt="GÉNESIS"
-                // CAMBIO: De h-10 pasamos a h-14 (móvil) y h-20 (escritorio).
                 className="h-20 md:h-20 w-auto object-contain invert transition-transform duration-300 group-hover:scale-105"
               />
             </div>
@@ -154,7 +166,7 @@ const Navbar: React.FC = () => {
                     0{index + 1}
                   </span>
 
-                  {/* Main Text - Clean Inter Medium (Normal Letter) */}
+                  {/* Main Text */}
                   <span className="font-inter font-medium text-2xl sm:text-3xl text-slate-200 group-hover:text-white transition-colors duration-300 tracking-tight">
                     {link.name}
                   </span>
