@@ -17,6 +17,7 @@ import ContactFooter from "./components/ContactFooter";
 import LegalNotice from "./src/pages/LegalNotice";
 import PrivacyPolicy from "./src/pages/PrivacePolicy";
 import CookiesPolicy from "./src/pages/CookiesPolicy";
+import { SEO } from "./components/SEO";
 
 // Componente para la página principal (Home)
 // Incluye el Footer aquí para que sea parte del flujo natural de la Home
@@ -94,10 +95,38 @@ const AppContent: React.FC = () => {
 
         <main className="flex-grow flex flex-col">
           <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/aviso-legal" element={<LegalNotice />} />
-            <Route path="/privacidad" element={<PrivacyPolicy />} />
-            <Route path="/cookies" element={<CookiesPolicy />} />
+            <Route path="/" element={
+              <>
+                <SEO
+                  title="Génesis Navarra | Agencia de automatización e IA en Navarra"
+                  description="Generamos ecosistemas digitales autónomos: agentes IA 24/7, automatización de procesos y desarrollo web premium. Menos tareas manuales, más rentabilidad."/>
+                <Home />
+              </>
+            } />
+            <Route path="/aviso-legal" element={
+              <>
+                <SEO 
+                  title="Aviso Legal | Génesis Navarra"
+                  description="Información legal de Génesis Innovación Digital: titularidad del sitio, condiciones de uso, responsabilidades y datos de contacto."/>
+                <LegalNotice />
+              </>
+            } />
+            <Route path="/privacidad" element={
+              <>
+                <SEO 
+                  title="Política de Privacidad | Génesis Navarra"
+                  description="Cómo tratamos tus datos personales: qué datos recogemos, para qué los usamos, legitimación, cesiones y tus derechos."/>
+                <PrivacyPolicy />
+              </>
+            } />
+            <Route path="/cookies" element={
+              <>
+                <SEO 
+                   title="Política de Cookies | Génesis Navarra"
+                description="Información sobre el uso de cookies en la web, tipos de cookies, finalidad y cómo gestionarlas desde tu navegador."/>
+                <CookiesPolicy />
+              </>
+            } />
           </Routes>
         </main>
 

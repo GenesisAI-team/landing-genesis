@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Sitemap generado
+Sitemap: https://www.genesisnavarra.com/sitemap.xml
