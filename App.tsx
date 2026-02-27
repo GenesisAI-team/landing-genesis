@@ -19,6 +19,14 @@ import PrivacyPolicy from "./src/pages/PrivacePolicy";
 import CookiesPolicy from "./src/pages/CookiesPolicy";
 import { SEO } from "./components/SEO";
 
+import { JsonLd } from "./components/JsonLd";
+import {
+  ORG_GENESIS,
+  SERVICE_AGENTES_IA,
+  SERVICE_AUTOMATIZACION,
+  SERVICE_DESARROLLO_WEB,
+} from "./data/jsonLdData";
+
 // Componente para la página principal (Home)
 // Incluye el Footer aquí para que sea parte del flujo natural de la Home
 const Home: React.FC = () => {
@@ -100,6 +108,16 @@ const AppContent: React.FC = () => {
                 <SEO
                   title="Génesis Navarra | Agencia de automatización e IA en Navarra"
                   description="Generamos ecosistemas digitales autónomos: agentes IA 24/7, automatización de procesos y desarrollo web premium. Menos tareas manuales, más rentabilidad."/>
+                <JsonLd
+                  id="jsonld-home"
+                  data={[
+                    ORG_GENESIS,
+                    SERVICE_AGENTES_IA,
+                    SERVICE_AUTOMATIZACION,
+                    SERVICE_DESARROLLO_WEB,
+                  ]}
+                />
+                
                 <Home />
               </>
             } />
